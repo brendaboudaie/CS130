@@ -62,7 +62,13 @@ void Render_World::Render()
 vec3 Render_World::Cast_Ray(const Ray& ray,int recursion_depth)
 {
     vec3 color;
-    TODO; // determine the color here
+    if (Closest_Intersection(ray).dist >= small_t) {
+        color = Closest_Intersection(ray).object->material_shader->Shade_Surface(ray, ray.Point(Closest_Intersection(ray).dist), Closest_Intersection(ray).object->Normal(ray.Point(Closest_Intersection(ray).dist), Closest_Intersection(ray).part), recursion_depth);
+    } else if (Closest_Intersection(ray).dist < small_t)
+    {
+        color = {0,0,0};
+    }
+    
     return color;
 }
 
